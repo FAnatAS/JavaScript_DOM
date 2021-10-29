@@ -19,15 +19,39 @@
    justify-content: space-evenly;
  }
  .cardWrapper{
+   display: flex;
+   align-items: flex-end;
    margin: 1rem;
    border: 3px solid #ddd;
  }
  .cardContainer{
-   text-align: center;
+   width: 300px;
+   text-align: center;   
+ }
+ .cardImageWrapper{
+  width: inherit;
+  height: 300px;
+  position: relative;
+  
+ }
+ .initials{
+   height: inherit;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   /* background-color: #000; */
+   color: #fff;
+   font-size: 4rem;
+
  }
  .cardImage{
-   width: 300px;
-   height: 300px;
+   width: inherit;
+   height: inherit;
+   position: absolute;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
    object-fit: cover;
    object-position: top;
  }
