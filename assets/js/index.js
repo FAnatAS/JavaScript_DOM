@@ -2,32 +2,59 @@
 
 const cardsContainer = document.getElementById('cardsContainer');
 
-const HTMLElements = actors.map((actor)=>createActorCards(actor));
+const HTMLElements = actors
+.filter((actor)=>actor.name&&actor.birthdate&&actor.photo)
+.map((actor)=>createActorCards(actor));
 
 function createActorCards(actor){
-  const card = document.createElement('li');
-  card.classList.add('cardWrapper');
-
-  const container = document.createElement('article');
-  container.classList.add('cardContainer');
-
-  const name = document.createElement('h2');
-  name.classList.add('cardName');
-  //name.textContent=actor.name
-  name.append(document.createTextNode(actor.name || 'noname'))
-
-  const description = document.createElement('p');
-  description.classList.add('cardDescription');
-  description.append(document.createTextNode(actor.birthdate || 'unknown'))
-
-  container.append(createImageWrapper(actor), name, description);
-  card.append(container);
-  return card;
+  const p = createElement('p',{classNames:['cardDescription']},
+        document.createTextNode(actor.birthdate || 'unknown'))
+  const h2 = createElement('h2', {classNames:['cardName']}, 
+        document.createTextNode(actor.name || 'noname')),
+  const article = createElement('article', {classNames:['cardContainer']}, 
+  createImageWrapper(actor),
+  h2,
+  p,
+  );
+  return createElement('li', {classNames:['cardWrapper']}, article);
 }
-// for (const elem of HTMLElements) {
-//   cardsContainer.appendChild(elem);// один способ добавления элементов в тэг
-// }
+  // const card = document.createElement('li');
+  // card.classList.add('cardWrapper');
+
+  // const container = document.createElement('article');
+  // container.classList.add('cardContainer');
+
+  // const name = document.createElement('h2');
+  // name.classList.add('cardName');
+  // //name.textContent=actor.name
+  // name.append(document.createTextNode(actor.name || 'noname'))
+
+  // const description = document.createElement('p');
+  // description.classList.add('cardDescription');
+  // description.append(document.createTextNode(actor.birthdate || 'unknown'))
+
+  // container.append(createImageWrapper(actor), name, description);
+  // card.append(container);
+  // return card;
+
 cardsContainer.append(...HTMLElements);
+/**
+ * 
+ * @param {string} type 
+ * @param {object} options 
+ * @param {string} options.typeEvent
+ * @param {string[]} options.classNames 
+ * @param {function} options.onClick   
+ * @param {node[]} children  
+ * return {Node}
+ */
+function createElement(type, {classNames, typeEvent, onClick}, ...children){
+  const elem = document.createElement(type);
+  elem.classList.add(...classNames);
+  elem.addEventListener('click', onClick); //example
+  elem.append(...children);
+  return elem;
+}
 
 function createImageWrapper(actor){
   const {id, name}=actor;
@@ -40,19 +67,20 @@ function createImageWrapper(actor){
   initials.append(document.createTextNode(name[0] || 'xyz'));
   initials.style.backgroundColor=stringToColour(name || '')
 
-  imgWrapper.append(initials, createImage(actor));
+  imgWrapper.append(initials);
+  createImage(actor);
   return imgWrapper;
 }
 
 function createImage({photo,name, id}){
   const img = document.createElement('img');
+  img.dataset.id=id;
   img.classList.add('cardImage');
   img.setAttribute('src', photo);
   img.setAttribute('alt', name);
-  img.dataset.id=id;
   img.addEventListener('error', handleImageError);
   img.addEventListener('load', handleImageLoad);
-  return img;
+  //return img;
 }
 
 /*handle */
