@@ -9,26 +9,16 @@ form.addEventListener('submit', (e)=>{
   const{target: {textInput}} = e
   //console.dir(textInput.value);
   //const newMessagesArray=messagesArray.push(textInput  ? messagesArray.push(textInput.value): console.log(newMessagesArray))
-
 const inputValue = textInput.value.trim();
-if(inputValue){
+//const validator = /(^\b\D{3,12}\b)(\b\D{2,17}$)/gi;
+//const validator = /(^[A-Z][a-z]{2,12} [A-Z][a-z]{1,17}$)|(^[А-Я][а-я]{2,12} [А-Я][а-я]{1,17})$/gi;
+const validator = /^[А-Я][а-я]{1,17} ([А-Я]\.){2}$/;
+//const label = pattern.test(inputValue);
+//console.log(label);
+if(validator.test(inputValue)){
   messagesArray.push(inputValue);
   form.reset();//очищает форму
   }
   console.dir(messagesArray);
 })
-const card = document.createElement('li');
-   card.classList.add('cardWrapper');
 
-   function createActorCards(actor){
-    const p = createElement('p',{classNames:['cardDescription']},
-          document.createTextNode(actor.birthdate || 'unknown'))
-    const h2 = createElement('h2', {classNames:['cardName']}, 
-          document.createTextNode(actor.name || 'noname'))
-    const article = createElement('article', {classNames:['cardContainer']}, 
-    createImageWrapper(actor),
-    h2,
-    p,
-    );
-    return createElement('li', {classNames:['cardWrapper']}, article);
-  }
