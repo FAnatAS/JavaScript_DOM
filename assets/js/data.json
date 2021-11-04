@@ -12,26 +12,26 @@
     }
   },
   {
-    "name":"Elon",
-    "sname":"Musk",
+    "name":"Tim",
+    "sname":"Cook",
     "age":50,
     "children":["one","two"],
     "isAdult":true,
     "isUkraine":null,
     "friends":{
     "friend1":"Tom",
-    "friend2":"Tim"
+    "friend2":"Elon"
     }
   },
   {
-    "name":"Elon",
-    "sname":"Musk",
+    "name":"Tom",
+    "sname":"Lee",
     "age":50,
     "children":["one","two"],
     "isAdult":true,
     "isUkraine":null,
     "friends":{
-    "friend1":"Tom",
+    "friend1":"Elon",
     "friend2":"Tim"
     }
   }
