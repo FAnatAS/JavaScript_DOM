@@ -67,19 +67,40 @@
 
 // console.log(promise)
 
-fetch('./assets/js/data.json')
-.then((response)=>response.json())
-.then((data)=>{
-  //console.table(data)
-  data.forEach((user)=>{
-    console.log(user.name);
-   });
-})
-.catch((error)=>{console.log(error);})
-.finally(()=>{console.log('the end')})
+// fetch('./assets/js/data.json')
+// .then((response)=>response.json())//
+// .then((data)=>{
+//   //console.table(data)
+//   data.forEach((user)=>{
+//     console.log(user.name);
+//    });
+// })
+// .catch((error)=>{console.log(error);})
+// .finally(()=>{console.log('the end')})
 
-const myFirstPromise = new Promise (executor);
+// const myFirstPromise = new Promise (executor);
 
-function executor(resolve, reject){
-  Math.random()>0.5?resolve():reject();
+// function executor(resolve, reject){
+//   Math.random()>0.5?resolve():reject();
+// }
+
+function loadImage(path){
+  const image=new Image();
+  image.src = path;
+  return new Promise((resolve, reject)=>{
+    image.addEventListener('load', ()=>{
+      resolve(image);
+    })
+    image.addEventListener('error', ()=>{
+      reject(new Error('Invalid path'))
+    })
+  });
 }
+loadImage('https://friendofthesea.org/public/news/blue-ocean-28668-2560x1600.jpg')
+.then((elem)=>{
+  document.body.prepend(elem);
+
+})
+.catch((err)=>{
+  console.log(err)
+})
